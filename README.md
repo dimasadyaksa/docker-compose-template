@@ -1,4 +1,4 @@
-# Dockerized Infrastructure Information
+# Dockerized Infrastructure
 
 ## 1. Mysql v8.0 Database
 
