@@ -1,5 +1,13 @@
 # Dockerized Infrastructure
 
+## How to run
+
+This command will run all services
+`docker-compose up --build -d`
+
+For specific service 
+`docker-compose up --build -d service_name`
+
 ## 1. Mysql v8.0 Database
 
 |Name|Value|
