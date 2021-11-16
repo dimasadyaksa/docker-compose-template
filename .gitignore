@@ -2,3 +2,4 @@ service_storage/minio/*
 service_storage/mysql/*
 service_storage/postgres/*
 service_storage/redis/*
+.idea/

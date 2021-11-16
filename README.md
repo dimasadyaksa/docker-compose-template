@@ -17,6 +17,8 @@
 |Username|postgres|
 |Password|BZHnDem5mcbtJkk9YbZee787SyAFGy7x|
 |DSN|postgres://postgres:BZHnDem5mcbtJkk9YbZee787SyAFGy7x@localhost:5432/`your_db`|
+|Create user query|CREATE USER username WITH ENCRYPTED PASSWORD 'user_password';|
+|Grant access query|GRANT ALL PRIVILEGES ON DATABASE db_name TO username;|
 
 ## 3. Minio Object Storage
 
