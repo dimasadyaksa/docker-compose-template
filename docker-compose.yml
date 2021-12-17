@@ -13,6 +13,19 @@ services:
     volumes:
       - "./service_storage/mysql:/var/lib/mysql"
 
+  mysql_5:
+    container_name: mysql5_svc
+    image: mysql/mysql-server:5.7
+    networks:
+      - svc_net
+    ports:
+      - "33065:3306"
+    environment:
+      - MYSQL_ROOT_PASSWORD=eucRvgVdaJMfY4G9R5KPwZ3V5g6pm8DP
+      - MYSQL_ROOT_HOST=%
+    volumes:
+      - "./service_storage/mysql5:/var/lib/mysql"
+
   postgres_12:
     container_name: postgres_svc
     image: postgres:12.4-alpine
@@ -61,6 +74,28 @@ services:
     volumes:
       - "/var/run/docker.sock:/var/run/docker.sock"
       - "./service_storage/portainer:/data portainer/portainer-ce"
+  phpmyadmin:
+    image: phpmyadmin
+    restart: always
+    ports:
+      - 9191:80
+    networks:
+      - svc_net
+    environment:
+      - MYSQL_ROOT_PASSWORD=eucRvgVdaJMfY4G9R5KPwZ3V5g6pm8DP
+      - PMA_HOST=mysql_svc
+      - PMA_PORTS=3306
+
+  sql-server-db:
+    container_name: sql-server-db
+    image: mcr.microsoft.com/mssql/server:2017-latest
+    ports:
+      - "1433:1433"
+    networks:
+      - svc_net
+    environment:
+      SA_PASSWORD: "eucRvgVdaJMfY4G9R5KPwZ3V5g6pm8DP"
+      ACCEPT_EULA: "Y"
 
 networks:
   svc_net:
