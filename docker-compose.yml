@@ -8,8 +8,9 @@ services:
     ports:
       - "3306:3306"
     environment:
-      - MYSQL_ROOT_PASSWORD=eucRvgVdaJMfY4G9R5KPwZ3V5g6pm8DP
-      - MYSQL_ROOT_HOST=%
+      - MYSQL_ROOT_PASSWORD=  # database password
+      - MYSQL_ROOT_HOST=  #set with the host that wants to access, set with '%' to allow access from all host
+      # for another env, please refer to https://hub.docker.com/_/mysql
     volumes:
       - "./service_storage/mysql:/var/lib/mysql"
 
@@ -21,8 +22,9 @@ services:
     ports:
       - "33065:3306"
     environment:
-      - MYSQL_ROOT_PASSWORD=eucRvgVdaJMfY4G9R5KPwZ3V5g6pm8DP
-      - MYSQL_ROOT_HOST=%
+      - MYSQL_ROOT_PASSWORD=  # database password
+      - MYSQL_ROOT_HOST=  #set with the host that wants to access, set with '%' to allow access from all host
+      # for other env, please refer to https://hub.docker.com/_/mysql
     volumes:
       - "./service_storage/mysql5:/var/lib/mysql"
 
@@ -34,9 +36,10 @@ services:
     networks:
       - svc_net
     environment:
-      - POSTGRES_DB=postgres
-      - POSTGRES_USER=postgres
-      - POSTGRES_PASSWORD=BZHnDem5mcbtJkk9YbZee787SyAFGy7x
+      - POSTGRES_DB=  # database name
+      - POSTGRES_USER=  # database username
+      - POSTGRES_PASSWORD=  # database password
+      # for another env, please refer to https://hub.docker.com/_/postgres
     volumes:
       - "./service_storage/postgres:/var/lib/postgresql/data"
 
@@ -45,7 +48,7 @@ services:
     image: redis:latest
     ports:
       - '6379:6379'
-    command: redis-server --requirepass wXU7z2HQtBP6mWjHbPsfK96rmnqweawg
+    command: redis-server
     volumes:
       - './service_storage/redis:/data'
 
@@ -60,8 +63,8 @@ services:
     networks:
       - svc_net
     environment:
-      - MINIO_ROOT_USER=AKIAIOSFODNN7EXAMPLE
-      - MINIO_ROOT_PASSWORD=wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY
+      - MINIO_ROOT_USER=  # minio username
+      - MINIO_ROOT_PASSWORD=  # minio password
     command: server /data --console-address ":9001"
 
   portainer:
@@ -72,7 +75,7 @@ services:
       - "10001:9000"
     restart: always
     volumes:
-      - "/var/run/docker.sock:/var/run/docker.sock"
+      - "/var/run/docker.sock:/var/run/docker.sock" # docker socket file , https://docs.docker.com/engine/reference/commandline/dockerd/#daemon-socket-option
       - "./service_storage/portainer:/data portainer/portainer-ce"
   phpmyadmin:
     image: phpmyadmin
@@ -82,9 +85,9 @@ services:
     networks:
       - svc_net
     environment:
-      - MYSQL_ROOT_PASSWORD=eucRvgVdaJMfY4G9R5KPwZ3V5g6pm8DP
-      - PMA_HOST=mysql_svc
-      - PMA_PORTS=3306
+      - MYSQL_ROOT_PASSWORD=  # database password
+      - PMA_HOST= # database server host
+      - PMA_PORTS=  # database server port
 
   sql-server-db:
     container_name: sql-server-db
@@ -94,7 +97,7 @@ services:
     networks:
       - svc_net
     environment:
-      SA_PASSWORD: "eucRvgVdaJMfY4G9R5KPwZ3V5g6pm8DP"
+      SA_PASSWORD: ${PASSWORD}
       ACCEPT_EULA: "Y"
 
 networks:
